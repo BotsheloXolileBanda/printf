@@ -22,39 +22,37 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
+			if (*format == 'c')
 			{
-				case 'c':
-					bufmem[x++] = va_arg(agms, int);
-					if (x == 1024)
-					{
-						rcrd += x;
-						clean_bufmem(bufmem, &x);
-					}
-					break;
-				case '%':
-					bufmem[x++] = '%';
-					if (x == 1024)
-					{
-						rcrd += x;
-						clean_bufmem(bufmem, &x);
-					}
-					break;
-				case 's':
-					sstr = va_arg(agms, char *);
-					while (*sstr)
-					{
-						bufmem[x++] = *sstr;
-						sstr++;
-					}
-					if (x == 1024)
-					{
-						rcrd += 1024;
-						clean_bufmem(bufmem, &x);
-					}
-					break;
-				default:
-					break;
+				bufmem[x++] = va_arg(agms, int);
+				if (x == 1024)
+				{
+					rcrd += x;
+					clean_bufmem(bufmem, &x);
+				}
+			}
+			else if (*format == '%')
+			{
+				bufmem[x++] = '%';
+				if (x == 1024)
+				{
+					rcrd += x;
+					clean_bufmem(bufmem, &x);
+				}
+			}
+			else if (*format == 's')
+			{
+				sstr = va_arg(agms, char *);
+				while (*sstr)
+				{
+					bufmem[x++] = *sstr;
+					sstr++;
+				}
+				if (x == 1024)
+				{
+					rcrd += 1024;
+					clean_bufmem(bufmem, &x);
+				}
 			}
 		}
 		else

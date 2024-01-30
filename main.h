@@ -9,4 +9,5 @@
 int charwrit(char g);
 int _printf(const char *format, ...);
 void clean_bufmem(char bufmem[], int *x);
+char *int_han(int intedeci);
 #endif
